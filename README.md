@@ -12,7 +12,7 @@ After exploring the example, you should be able to:
 - Describe how MQTT decouples message producers from consumers.
 - Implement MQTT communication using the Eclipse Paho library.
 - Recognize callbacks as an application of event-driven programming and the Observer concept.
-- Read a UML class <img width="1448" height="1086" alt="61C417AA-E8DD-422F-8EEB-C18BB75DC208" src="https://github.com/user-attachments/assets/45049cb4-5460-4441-b94d-84b58863a0db" /> and connect its relationships to Java source code.
+- Read a UML class and connect its relationships to Java source code.
 
 ## Architecture
 
