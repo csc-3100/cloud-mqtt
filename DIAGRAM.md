@@ -1,3 +1,7 @@
+# UML Class Diagram
+
+This diagram illustrates the MQTT application's classes, interfaces, attributes, methods, and relationships.
+
 ```mermaid
 classDiagram
     direction LR
@@ -61,14 +65,11 @@ classDiagram
 
     %% CSC 3100 UML colors
 
-    classDef application fill:#FFF2B3,stroke:#555555,color:#222222
-    classDef library fill:#DCEEFF,stroke:#555555,color:#222222
+    style Handler fill:#FFF2B3,stroke:#555555,color:#222222
+    style Publisher fill:#FFF2B3,stroke:#555555,color:#222222
+    style Subscriber fill:#FFF2B3,stroke:#555555,color:#222222
 
-    class Handler application
-    class Publisher application
-    class Subscriber application
-
-    class Runnable library
-    class MqttCallback library
-    class MqttClient library
+    style Runnable fill:#DCEEFF,stroke:#555555,color:#222222
+    style MqttCallback fill:#DCEEFF,stroke:#555555,color:#222222
+    style MqttClient fill:#DCEEFF,stroke:#555555,color:#222222
 ```
