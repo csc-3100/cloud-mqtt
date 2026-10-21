@@ -1,4 +1,4 @@
-![Platform](https://img.shields.io/badge/platform-Java_Swing-orange)
+![Platform](https://img.shields.io/badge/platform-Java-orange)
 
 # MQTT | Publish–Subscribe Communication in Java
 
@@ -16,13 +16,19 @@ After exploring the example, you should be able to:
 
 ## Architecture
 
-```text
-Publisher ── publish(topic, message) ──▶ MQTT Broker
-                                             │
-                                             └── deliver to subscribed topics ──▶ Subscriber
+```mermaid
+
+flowchart LR
+
+    P[Publisher] -->|Publish message| B[MQTT Broker]
+
+    B -->|Deliver message| S[Subscriber]
+
 ```
 
-The publisher and subscriber communicate **through the broker**, not directly with each other. The broker forwards messages according to topic subscriptions. In this demonstration, both clients run as separate threads within one Java application; they could also run in separate applications or on different computers.
+The publisher and subscriber communicate **through the broker**, not directly with each other. The broker forwards messages according to topic subscriptions.
+
+In this demonstration, both clients run as separate threads within one Java application. They could also run in separate applications or on different computers.
 
 ## Project structure
 
@@ -46,11 +52,12 @@ The UML class diagram illustrates the structure of the MQTT application, includi
 
 [View the UML Class Diagram](DIAGRAM.md)
 
-The diagram uses the CSC 3100 UML conventions:
+The diagram follows the CSC 3100 UML conventions:
+
 - **Yellow:** Application classes developed in this repository.
 - **Blue:** Java SDK and external library classes and interfaces.
-- **Solid arrows:** Associations between classes.
-- **Dashed lines with hollow triangles:** Interface realizations.BB75DC208" src="https://github.com/user-attachments/assets/b51d580a-1458-416f-a958-b7e855016ddb" />
+- **Solid arrows:** Associations.
+- **Dashed lines with hollow triangles:** Interface realizations.
 
 
 ## Requirements
