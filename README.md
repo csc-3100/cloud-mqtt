@@ -3,15 +3,58 @@
 ![Java](https://img.shields.io/badge/Java-17+-blue)
 ![Platform](https://img.shields.io/badge/platform-Java_Swing-orange)
 
-This project provides three Java examples for learning MQTT using the Eclipse Paho MQTT client and the public test broker at **test.mosquitto.org**.
+# MQTT | Publish–Subscribe Communication in Java
 
-## 🚀 Features
-- Simple **Publisher**, **Subscriber**, and **Publish–Subscriber** (Handler)
-- Uses the Eclipse **Paho MQTT Client**
-- Demonstrates core MQTT concepts (topics, QoS, callbacks)
-- Ready for students to explore and extend
+This repository demonstrates **publish–subscribe communication** using Java, the [Eclipse Paho MQTT client](https://eclipse.dev/paho/), and the public MQTT broker at `test.mosquitto.org`. It is a small software architecture example for CSC 3100.
 
-## 📦Maven Dependency
+## Learning objectives
+
+After exploring the example, you should be able to:
+
+- Explain the roles of a **publisher**, **subscriber**, **broker**, and **topic**.
+- Describe how MQTT decouples message producers from consumers.
+- Implement MQTT communication using the Eclipse Paho library.
+- Recognize callbacks as an application of event-driven programming and the Observer concept.
+- Read a UML class diagram and connect its relationships to Java source code.
+
+## Architecture
+
+```text
+Publisher ── publish(topic, message) ──▶ MQTT Broker
+                                             │
+                                             └── deliver to subscribed topics ──▶ Subscriber
+```
+
+The publisher and subscriber communicate **through the broker**, not directly with each other. The broker forwards messages according to topic subscriptions. In this demonstration, both clients run as separate threads within one Java application; they could also run in separate applications or on different computers.
+
+## Project structure
+
+```text
+pom.xml
+src/main/java/
+├── Handler.java
+├── Publisher.java
+└── Subscriber.java
+```
+
+| Class | Responsibility |
+| --- | --- |
+| `Handler` | Entry point: configures the broker and topics, then starts publisher and subscriber threads. |
+| `Publisher` | Implements `Runnable`; connects to the broker and publishes ten messages to each configured topic. |
+| `Subscriber` | Implements `Runnable` and `MqttCallback`; subscribes to topics and prints received messages in `messageArrived(...)`. |
+
+See the editable [UML class diagram](mqtt-class-diagram.puml) for class members and relationships.
+
+## Requirements
+
+- **JDK 20** (the current `pom.xml` targets Java 20; update the compiler settings if you intend to use another version).
+- **Apache Maven**.
+- Internet access to `test.mosquitto.org` on TCP port **1883**.
+
+### Maven dependency
+
+The project already declares Eclipse Paho in `pom.xml`:
+
 ```xml
 <dependency>
     <groupId>org.eclipse.paho</groupId>
@@ -20,96 +63,74 @@ This project provides three Java examples for learning MQTT using the Eclipse Pa
 </dependency>
 ```
 
-## 📨 Broker and Topics
+## Build and run
 
-All communication goes through the public MQTT broker:
-
-- **Broker URL:** `tcp://test.mosquitto.org:1883`
-
-The handler uses two topics:
-
-- `example/toIgnore`
-- `example/toRead`
-
-The subscriber listens to both, but you can imagine `example/toIgnore` as background or noisy data and `example/toRead` as the “interesting” stream.
-You are encouraged to change these topic strings and observe how behavior changes.
-
-
-## 📘 Class Overview
-
-### `Handler.java` 
-
-This is the **only** class you need to run to see the full publish/subscribe demo. 
-- Defines the broker URL and the topics (`example/toIgnore`, `example/toRead`)
-- Creates a `Subscriber` and a `Publisher`, each with the same broker and topics
-- Starts both as independent threads so they run concurrently
-
-- **How to run:**
+From the repository root, compile with Maven:
 
 ```bash
-javac *.java
-java Handler
+mvn compile
 ```
 
-### `Publisher.java`
+Run the `Handler` entry point with Maven's Exec plugin:
 
-A **Runnable** that connects to the broker and periodically publishes messages to the two topics given by `Handler`.
+```bash
+mvn org.codehaus.mojo:exec-maven-plugin:3.5.1:java -Dexec.mainClass=Handler
+```
 
-**Conceptual behavior:**
+The first command downloads dependencies and compiles the code. The second runs the demonstration with Maven-managed dependencies on the classpath. Stop the application with **Ctrl+C**; the current subscriber loop otherwise keeps running.
 
-- Connects to `tcp://test.mosquitto.org:1883`
-- For a fixed number of iterations:
-    - Builds one message for `example/toIgnore`
-    - Builds one message for `example/toRead`
-    - Publishes both with a chosen QoS (e.g., 2)
-- Logs each published message to the console
-- Disconnects cleanly at the end
+> The current Java sources use the default package, so the entry point is `Handler`, not a package-qualified class name.
 
-### `Subscriber.java`
+## Broker and topics
 
-A **Runnable** and **MqttCallback** that connects to the broker and subscribes to the given topics.
+| Setting | Value |
+| --- | --- |
+| Broker | `tcp://test.mosquitto.org:1883` |
+| Topic 1 | `example/toIgnore` |
+| Topic 2 | `example/toRead` |
+| QoS | `2` |
 
-**Conceptual behavior:**
+Despite their names, **both topics are subscribed to and printed** by the current implementation. The subscriber does not filter out `example/toIgnore`.
 
-- Connects to `tcp://test.mosquitto.org:1883`
-- Subscribes to both:
-    - `example/toIgnore`
-    - `example/toRead`
-- Implements `messageArrived(...)` to print incoming messages:
+The publisher sends the same message (`This is message 0`, `This is message 1`, etc.) to both topics once per second, for ten iterations. The subscriber prints the topic, QoS, and message content as each message arrives.
 
-
-## 🧪 Example Console Output
-
-### Subscriber Output Example
+Example output (the order of messages can vary):
 
 ```text
 📥 Connected to broker: tcp://test.mosquitto.org:1883
-📥 Subscribed to: example/toIgnore
-📥 Subscribed to: example/toRead
-📥 Delivery :: [example/toRead : 2] :: this is message to read 0
-📥 Delivery :: [example/toIgnore : 2] :: this is message to ignore 0
-```
-
-### Publisher Output Example
-
-```text
+📥 Subscribed to topic: example/toIgnore
+📥 Subscribed to topic: example/toRead
 ↗️ Connected to broker: tcp://test.mosquitto.org:1883
-↗️ Published to example/toIgnore: this is message to ignore 0
-↗️ Published to example/toRead: this is message to read 0
+↗️ published to example/toIgnore: This is message 0
+📥 Delivery :: [example/toIgnore : 2] :: This is message 0
+↗️ published to example/toRead: This is message 0
+📥 Delivery :: [example/toRead : 2] :: This is message 0
 ```
 
-## 🏞️ Class Diagram
-A drafted class diagram of the current release is as follows:
+Because publisher and subscriber start concurrently, the subscriber may not be ready before the first message is published. Missing the earliest messages is possible in the current example.
 
-<img width="989" height="610" alt="Class Diagram0" src="https://github.com/user-attachments/assets/eaeb2ff2-f452-4c37-af8d-aab16f076a6a" />
+## Understanding the design
 
-## 🎯 Notes & Tips
+- **`Runnable`** allows `Publisher` and `Subscriber` to execute concurrently in threads started by `Handler`.
+- **`MqttCallback`** defines methods that Paho calls when messages arrive or a connection is lost.
+- **`client.setCallback(this)`** registers the `Subscriber` object as the callback handler.
+- **`messageArrived(String topic, MqttMessage message)`** is invoked when a subscribed message is delivered.
+- **QoS 2** requests exactly-once delivery at the MQTT protocol level for the relevant delivery flow; it does not guarantee that a subscriber receives messages sent before its subscription is active.
 
-- `test.mosquitto.org` is a **public** broker:
-    - Do **not** send sensitive or private data.
-    - Anyone can publish/subscribe on the same topics.
-- If you don’t see messages:
-    - Make sure `Handler` is running (both publisher and subscriber threads are started).
-    - Check your network and any firewalls that might block port **1883**.
-    - Confirm that the broker is online (the public test broker can occasionally restart).
+## Try it yourself
 
+1. Change one topic in `Handler` and observe which messages are delivered.
+2. Change the publisher's QoS and compare the output.
+3. Add another subscriber and observe how both subscribers receive publications.
+4. Run publisher and subscriber as independent applications rather than threads in one application.
+5. Update the UML diagram after changing the Java design.
+
+## Public broker precautions
+
+`test.mosquitto.org` is a public test service. **Never publish passwords, private data, or other sensitive information.** Other clients can publish to the same topics. For classroom experiments, replace the example topic names with unique names such as `csc3100/<your-id>/temperature`.
+
+If no messages appear, verify internet access, TCP port 1883, and broker availability. Also check whether the subscriber finished subscribing before the publisher sent its first message.
+
+## Current limitations
+
+This is an introductory demonstration, not a production-ready MQTT client. The subscriber runs until interrupted, the initial publisher/subscriber startup is not coordinated, and reconnection and graceful shutdown are not implemented. These are opportunities for subsequent refactoring and architectural discussion.
