@@ -58,13 +58,16 @@ classDiagram
     Handler --> Publisher
     Handler --> Subscriber
 
+    %% Runnable implemented by both classes
+    Publisher ..|> Runnable
+    Subscriber ..|> Runnable
+
+    %% MQTT dependencies
     Publisher --> MqttClient
     Subscriber --> MqttClient
 
-    %% Interface realizations
+    %% MQTT callback interface
     Subscriber ..|> MqttCallback
-    Subscriber ..|> Runnable
-    Publisher ..|> Runnable
 
 
     %% CSC 3100 UML colors
