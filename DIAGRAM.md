@@ -1,12 +1,3 @@
-# UML Class Diagram
-
-This diagram illustrates the structure of the MQTT application using the CSC 3100 UML conventions.
-
-- **Yellow:** Application classes.
-- **Blue:** Java SDK and external library classes and interfaces.
-- **Solid arrows:** Associations.
-- **Dashed lines with hollow triangles:** Interface realizations.
-
 ```mermaid
 classDiagram
     direction LR
@@ -76,15 +67,3 @@ classDiagram
     class Handler,Publisher,Subscriber application
     class Runnable,MqttCallback,MqttClient library
 ```
-
-## Design Notes
-
-The `Handler` class starts the publisher and subscriber threads.
-
-Both `Publisher` and `Subscriber` implement the Java `Runnable` interface, allowing them to execute concurrently.
-
-The `Subscriber` also implements the Eclipse Paho `MqttCallback` interface to receive notifications when messages arrive or connections are lost.
-
-Both classes use `MqttClient` to communicate with the MQTT broker.
-
-The publisher and subscriber do not communicate directly. MQTT messages are exchanged through the broker.
