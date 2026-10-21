@@ -1,3 +1,5 @@
+import java.nio.charset.StandardCharsets;
+
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -30,7 +32,7 @@ public class Subscriber implements Runnable, MqttCallback {
 			client.setCallback(this);
 			client.connect();
 			System.out.println("📥 Connected to broker: " + broker);
-			// 2. subscribe to only one of the topics with QoS=2
+			// 2. subscribe to all configured topics with QoS=2
 			for (String topic : topics) {
 				client.subscribe(topic, 2);
 				System.out.println("📥 Subscribed to topic: " + topic);
@@ -63,7 +65,7 @@ public class Subscriber implements Runnable, MqttCallback {
 	
 	@Override
 	public void messageArrived(String topic, MqttMessage message) {
-		String payload = new String(message.getPayload());
+		String payload = new String(message.getPayload(), StandardCharsets.UTF_8);
 		System.out.println("📥 Delivery :: " + "[" + topic + " : " + message.getQos() + "] :: " + payload);
 	}
 	
