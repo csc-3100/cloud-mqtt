@@ -88,12 +88,10 @@ The first command downloads dependencies and compiles the code. The second runs 
 
 ## Broker and topics
 
-| Setting | Value |
-| --- | --- |
-| Broker | `tcp://broker.hivemq.com:1883` |
-| Topic 1 | `example/toIgnore` |
-| Topic 2 | `example/toRead` |
-| QoS | `2` |
+- **Broker:** `tcp://broker.hivemq.com:1883`
+- **Topic 1:** `example/toIgnore`
+- **Topic 2:** `example/toRead`
+- **QoS:** `2`
 
 Despite their names, **both topics are subscribed to and printed** by the current implementation. The subscriber does not filter out `example/toIgnore`.
 
