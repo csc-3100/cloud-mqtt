@@ -64,6 +64,11 @@ classDiagram
     classDef application fill:#FFF2B3,stroke:#555555,color:#222222
     classDef library fill:#DCEEFF,stroke:#555555,color:#222222
 
-    class Handler,Publisher,Subscriber application
-    class Runnable,MqttCallback,MqttClient library
+    class Handler application
+    class Publisher application
+    class Subscriber application
+
+    class Runnable library
+    class MqttCallback library
+    class MqttClient library
 ```
