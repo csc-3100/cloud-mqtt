@@ -4,7 +4,7 @@ This diagram illustrates the MQTT application's classes, interfaces, attributes,
 
 ```mermaid
 classDiagram
-    direction LR
+    direction TB
 
     class Handler {
         -String BROKER_URL
