@@ -3,6 +3,11 @@
 This diagram illustrates the MQTT application's classes, interfaces, attributes, methods, and relationships.
 
 ```mermaid
+---
+config:
+  class:
+    diagramPadding: 60
+---
 classDiagram
     direction TB
 
