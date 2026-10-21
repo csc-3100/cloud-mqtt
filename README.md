@@ -1,5 +1,3 @@
-![Platform](https://img.shields.io/badge/platform-Java-orange)
-
 This repository demonstrates **publish–subscribe communication** using Java, the [Eclipse Paho MQTT client](https://eclipse.dev/paho/), and the public MQTT broker at `broker.hivemq.com`. It is a small software architecture example for CSC 3100.
 
 ## Learning objectives
