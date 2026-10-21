@@ -1,6 +1,6 @@
 ![Platform](https://img.shields.io/badge/platform-Java-orange)
 
-This repository demonstrates **publish–subscribe communication** using Java, the [Eclipse Paho MQTT client](https://eclipse.dev/paho/), and the public MQTT broker at `test.mosquitto.org`. It is a small software architecture example for CSC 3100.
+This repository demonstrates **publish–subscribe communication** using Java, the [Eclipse Paho MQTT client](https://eclipse.dev/paho/), and the public MQTT broker at `broker.hivemq.com`. It is a small software architecture example for CSC 3100.
 
 ## Learning objectives
 
@@ -56,7 +56,7 @@ The diagram follows the CSC 3100 UML conventions:
 
 - **JDK 20** (the current `pom.xml` targets Java 20; update the compiler settings if you intend to use another version).
 - **Apache Maven**.
-- Internet access to `test.mosquitto.org` on TCP port **1883**.
+- Internet access to `broker.hivemq.com` on TCP port **1883**.
 
 ### Maven dependency
 
@@ -92,7 +92,7 @@ The first command downloads dependencies and compiles the code. The second runs 
 
 | Setting | Value |
 | --- | --- |
-| Broker | `tcp://test.mosquitto.org:1883` |
+| Broker | `tcp://broker.hivemq.com:1883` |
 | Topic 1 | `example/toIgnore` |
 | Topic 2 | `example/toRead` |
 | QoS | `2` |
@@ -104,10 +104,10 @@ The publisher sends the same message (`This is message 0`, `This is message 1`, 
 Example output (the order of messages can vary):
 
 ```text
-📥 Connected to broker: tcp://test.mosquitto.org:1883
+📥 Connected to broker: tcp://broker.hivemq.com:1883
 📥 Subscribed to topic: example/toIgnore
 📥 Subscribed to topic: example/toRead
-↗️ Connected to broker: tcp://test.mosquitto.org:1883
+↗️ Connected to broker: tcp://broker.hivemq.com:1883
 ↗️ published to example/toIgnore: This is message 0
 📥 Delivery :: [example/toIgnore : 2] :: This is message 0
 ↗️ published to example/toRead: This is message 0
@@ -134,7 +134,7 @@ Because publisher and subscriber start concurrently, the subscriber may not be r
 
 ## Public broker precautions
 
-`test.mosquitto.org` is a public test service. **Never publish passwords, private data, or other sensitive information.** Other clients can publish to the same topics. For classroom experiments, replace the example topic names with unique names such as `csc3100/<your-id>/temperature`.
+`broker.hivemq.com` is a public test service. **Never publish passwords, private data, or other sensitive information.** Other clients can publish to the same topics. For classroom experiments, replace the example topic names with unique names such as `csc3100/<your-id>/temperature`.
 
 If no messages appear, verify internet access, TCP port 1883, and broker availability. Also check whether the subscriber finished subscribing before the publisher sent its first message.
 
