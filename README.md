@@ -27,14 +27,14 @@ The publisher and subscriber communicate **through the broker**, not directly wi
 ```text
 pom.xml
 src/main/java/
-├── Handler.java
+├── Main.java
 ├── Publisher.java
 └── Subscriber.java
 ```
 
 | Class | Responsibility |
 | --- | --- |
-| `Handler` | Entry point: configures the broker and topics, then starts publisher and subscriber threads. |
+| `Main` | Entry point: configures the broker and topics, then starts publisher and subscriber threads. |
 | `Publisher` | Implements `Runnable`; connects to the broker and publishes ten messages to each configured topic. |
 | `Subscriber` | Implements `Runnable` and `MqttCallback`; subscribes to topics and prints received messages in `messageArrived(...)`. |
 
@@ -78,15 +78,15 @@ From the repository root, compile with Maven:
 mvn compile
 ```
 
-Run the `Handler` entry point with Maven's Exec plugin:
+Run the `Main` entry point with Maven's Exec plugin:
 
 ```bash
-mvn org.codehaus.mojo:exec-maven-plugin:3.5.1:java -Dexec.mainClass=Handler
+mvn org.codehaus.mojo:exec-maven-plugin:3.5.1:java -Dexec.mainClass=Main
 ```
 
 The first command downloads dependencies and compiles the code. The second runs the demonstration with Maven-managed dependencies on the classpath. Stop the application with **Ctrl+C**; the current subscriber loop otherwise keeps running.
 
-> The current Java sources use the default package, so the entry point is `Handler`, not a package-qualified class name.
+> The current Java sources use the default package, so the entry point is `Main`, not a package-qualified class name.
 
 ## Broker and topics
 
@@ -118,7 +118,7 @@ Because publisher and subscriber start concurrently, the subscriber may not be r
 
 ## Understanding the design
 
-- **`Runnable`** allows `Publisher` and `Subscriber` to execute concurrently in threads started by `Handler`.
+- **`Runnable`** allows `Publisher` and `Subscriber` to execute concurrently in threads started by `Main`.
 - **`MqttCallback`** defines methods that Paho calls when messages arrive or a connection is lost.
 - **`client.setCallback(this)`** registers the `Subscriber` object as the callback handler.
 - **`messageArrived(String topic, MqttMessage message)`** is invoked when a subscribed message is delivered.
@@ -126,7 +126,7 @@ Because publisher and subscriber start concurrently, the subscriber may not be r
 
 ## Try it yourself
 
-1. Change one topic in `Handler` and observe which messages are delivered.
+1. Change one topic in `Main` and observe which messages are delivered.
 2. Change the publisher's QoS and compare the output.
 3. Add another subscriber and observe how both subscribers receive publications.
 4. Run publisher and subscriber as independent applications rather than threads in one application.

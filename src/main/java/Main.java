@@ -1,11 +1,11 @@
 /**
- * An MQTT client publishing and subscribing to topics.
+ * Entry point for the MQTT publish-subscribe demonstration.
  * It starts a publisher and a subscriber, both configured with the same topics.
  *
  * @author javiergs
  * @version 2.0
  */
-public class Handler {
+public class Main {
 	
 	private final static String BROKER_URL = "tcp://test.mosquitto.org:1883";
 	private final static String[] TOPICS = {
