@@ -7,7 +7,7 @@
  */
 public class Main {
 	
-	private final static String BROKER_URL = "tcp://test.mosquitto.org:1883";
+	private final static String BROKER_URL = "tcp://broker.hivemq.com:1883";
 	private final static String[] TOPICS = {
 		"example/toIgnore",
 		"example/toRead"
