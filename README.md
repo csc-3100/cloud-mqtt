@@ -40,7 +40,7 @@ src/main/java/
 | `Publisher` | Implements `Runnable`; connects to the broker and publishes ten messages to each configured topic. |
 | `Subscriber` | Implements `Runnable` and `MqttCallback`; subscribes to topics and prints received messages in `messageArrived(...)`. |
 
-See the editable [UML class diagram](mqtt-class-diagram.puml) for class members and relationships.
+See the editable [UML class diagram](DIAGRAM.puml) for class members and relationships.
 
 ## Requirements
 
