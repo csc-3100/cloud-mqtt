@@ -1,6 +1,3 @@
-![Static Badge](https://img.shields.io/badge/author-javiergs-orange)
-![GitHub repo size](https://img.shields.io/github/repo-size/CSC3100/Tool-MQTT)
-![Java](https://img.shields.io/badge/Java-17+-blue)
 ![Platform](https://img.shields.io/badge/platform-Java_Swing-orange)
 
 # MQTT | Publish–Subscribe Communication in Java
