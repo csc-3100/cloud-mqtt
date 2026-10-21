@@ -8,7 +8,7 @@ config:
 classDiagram
     direction TB
 
-    class Handler {
+    class Main {
         -String BROKER_URL
         -String[] TOPICS
         +main(String[] args)$ void
@@ -52,8 +52,8 @@ classDiagram
     }
 
     %% Associations
-    Handler --> Publisher
-    Handler --> Subscriber
+    Main --> Publisher
+    Main --> Subscriber
 
     %% Runnable implemented by both classes
     Publisher ..|> Runnable
@@ -69,7 +69,7 @@ classDiagram
 
     %% CSC 3100 UML colors
 
-    style Handler fill:#FFF2B3,stroke:#555555,color:#222222
+    style Main fill:#FFF2B3,stroke:#555555,color:#222222
     style Publisher fill:#FFF2B3,stroke:#555555,color:#222222
     style Subscriber fill:#FFF2B3,stroke:#555555,color:#222222
 
