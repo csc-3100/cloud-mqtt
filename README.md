@@ -16,19 +16,13 @@ After exploring the example, you should be able to:
 
 ## Architecture
 
-```mermaid
-
-flowchart LR
-
-    P[Publisher] -->|Publish message| B[MQTT Broker]
-
-    B -->|Deliver message| S[Subscriber]
-
+```text
+Publisher ── publish(topic, message) ──▶ MQTT Broker
+                                             │
+                                             └── deliver to subscribed topics ──▶ Subscriber
 ```
 
-The publisher and subscriber communicate **through the broker**, not directly with each other. The broker forwards messages according to topic subscriptions.
-
-In this demonstration, both clients run as separate threads within one Java application. They could also run in separate applications or on different computers.
+The publisher and subscriber communicate **through the broker**, not directly with each other. The broker forwards messages according to topic subscriptions. In this demonstration, both clients run as separate threads within one Java application; they could also run in separate applications or on different computers.
 
 ## Project structure
 
