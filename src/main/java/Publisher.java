@@ -1,3 +1,5 @@
+import java.nio.charset.StandardCharsets;
+
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -32,7 +34,7 @@ public class Publisher implements Runnable {
 			int counter = 0;
 			while (counter < 10) {
 				String content = "This is message " + counter;
-				MqttMessage message = new MqttMessage(content.getBytes());
+				MqttMessage message = new MqttMessage(content.getBytes(StandardCharsets.UTF_8));
 				message.setQos(2);
 				if (client.isConnected()) {
 					for (String topic : topics) {

@@ -1,6 +1,6 @@
 /**
  * An MQTT client publishing and subscribing to topics.
- * It publishes messages on two topics and listens to one.
+ * It starts a publisher and a subscriber, both configured with the same topics.
  *
  * @author javiergs
  * @version 2.0
