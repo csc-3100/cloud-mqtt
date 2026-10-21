@@ -42,9 +42,15 @@ src/main/java/
 
 ## Blueprint
 
-See the class members and relationships:
+The UML class diagram illustrates the structure of the MQTT application, including its classes, interfaces, attributes, methods, and relationships.
 
-<img width="1448" height="1086" alt="61C417AA-E8DD-422F-8EEB-C18BB75DC208" src="https://github.com/user-attachments/assets/b51d580a-1458-416f-a958-b7e855016ddb" />
+[View the UML Class Diagram](DIAGRAM.md)
+
+The diagram uses the CSC 3100 UML conventions:
+- **Yellow:** Application classes developed in this repository.
+- **Blue:** Java SDK and external library classes and interfaces.
+- **Solid arrows:** Associations between classes.
+- **Dashed lines with hollow triangles:** Interface realizations.BB75DC208" src="https://github.com/user-attachments/assets/b51d580a-1458-416f-a958-b7e855016ddb" />
 
 
 ## Requirements
