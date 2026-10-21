@@ -1,6 +1,3 @@
-# UML Class Diagram
-
-This diagram illustrates the MQTT application's classes, interfaces, attributes, methods, and relationships.
 
 ```mermaid
 ---
@@ -80,3 +77,5 @@ classDiagram
     style MqttCallback fill:#DCEEFF,stroke:#555555,color:#222222
     style MqttClient fill:#DCEEFF,stroke:#555555,color:#222222
 ```
+
+
