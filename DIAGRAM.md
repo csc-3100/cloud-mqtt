@@ -55,7 +55,6 @@ classDiagram
     }
 
     %% Associations
-
     Handler --> Publisher
     Handler --> Subscriber
 
@@ -63,10 +62,10 @@ classDiagram
     Subscriber --> MqttClient
 
     %% Interface realizations
-
-    Publisher ..|> Runnable
-    Subscriber ..|> Runnable
     Subscriber ..|> MqttCallback
+    Subscriber ..|> Runnable
+    Publisher ..|> Runnable
+
 
     %% CSC 3100 UML colors
 
